@@ -5,7 +5,7 @@
         int info;
         struct no *esq;
         struct no*dir;
-
+        int fb;
     }tno;
 
     void insere(tno**t, int x){
@@ -91,7 +91,7 @@
       if(t->dir != NULL)
       PreOrdem(t->dir);
     }
-
+  
     void PosOrdem (tno*t) {
         //tno *no;
       if(t->esq != NULL)
@@ -101,6 +101,34 @@
       PosOrdem(t->dir);
 
      printf("%d\n",t->info);
+    }
+    //=================ROTAÇÃO DIREITA=======================
+    void RD(tno **p){
+      tno *u;
+      u=(*p)->esq;
+      (*p)->esq=u->dir;
+      u->dir=(*p);
+      (*p)->fb=0;
+      (*p)=u;
+    }
+    //===============ROTAÇÃO DUPLADIREITA===================
+    void RDD(tno**p){
+      RE((*p)->esq);
+      RD((*p));
+    }
+    //==================ROTAÇÃO ESQUERDA===================
+    void RE(tno **p){
+      tno *u;
+      u=(*p)->dir;
+      (*p)->dir=u->esq;
+      u->esq=(*p);
+      (*p)->fb=0;
+      (*p)=u;
+    }
+    //====================== ROTAÇÃO DUPLAESQUERDA=================
+    void RDE(tno**p){
+      RD((*p)->dir);
+      RE((*p));
     }
 
     tno *maior(tno**t){
@@ -117,6 +145,9 @@
             }
         }
     }
+int contanos (tno*t){
+  return((t==NULL)?0 : 1+contanos(t->esq)+contanos(t->dir));
+}
 void remover(tno**t,int x){
         //============== Metodo Apaga folha =================
     if(*t!=NULL) {
@@ -158,13 +189,18 @@ int main(){
     insere(&t,15);
     insere(&t,9);
     insere(&t,8);
-    PreOrdem(t);
+int con=0;
     printf("\n");
     //int x =buscaR(t,9);
     //if(x!=-1)printf("achou :%d",x);
     //else printf("nao achou");
-    remover(&t,10);
-    PreOrdem(t);
+    //remover(&t,10);
+    con=  contanos(t);
+    printf("\n");
+    printf("\n");
+      printf("quantidade de nos: %d",con);
+printf("\n");
+    Ordem(t);
 
     return 0;
 }
