@@ -33,7 +33,7 @@
     else
         ant->dir=no;
     }
-}
+  }
     // metodo busca
     int busca(tno*t,int x){
         while(t!=NULL){
@@ -68,7 +68,9 @@
     void imprimelvl(tno*t,int nivel){
         if(t==NULL)
             return;
-        printf("%d nivel: %d",t->info,nivel);
+        //printf("%d nivel: %d",t->info,nivel);
+        t->fb=t->dir->fb - t->esq->fb;
+        printf("%d\n",t->fb );
         imprimelvl(t->esq,nivel+1);
         imprimelvl(t->dir,nivel+1);
     }
@@ -89,16 +91,16 @@
         PreOrdem(t->esq);
 
       if(t->dir != NULL)
-      PreOrdem(t->dir);
+        PreOrdem(t->dir);
     }
-  
+
     void PosOrdem (tno*t) {
         //tno *no;
       if(t->esq != NULL)
         PosOrdem(t->esq);
 
       if(t->dir != NULL)
-      PosOrdem(t->dir);
+        PosOrdem(t->dir);
 
      printf("%d\n",t->info);
     }
@@ -109,13 +111,10 @@
       (*p)->esq=u->dir;
       u->dir=(*p);
       (*p)->fb=0;
+      //imprimelvl((*p),0);
       (*p)=u;
     }
-    //===============ROTAÇÃO DUPLADIREITA===================
-    void RDD(tno**p){
-      RE((*p)->esq);
-      RD((*p));
-    }
+
     //==================ROTAÇÃO ESQUERDA===================
     void RE(tno **p){
       tno *u;
@@ -125,10 +124,27 @@
       (*p)->fb=0;
       (*p)=u;
     }
+    //===============ROTAÇÃO DUPLADIREITA===================
+    void RDD(tno**p){
+      tno *u,*v;
+      u=(*p)->esq;
+      v=u->dir;
+      (*p)->esq= v->dir;
+      u->dir=v->esq;
+      v->esq=u;
+      v->dir=*p;
+      (*p)->fb=(v->fb==-1)?1=0;
+      u->fb=(v->fb==1)?-1:0;
+    }
     //====================== ROTAÇÃO DUPLAESQUERDA=================
     void RDE(tno**p){
-      RD((*p)->dir);
-      RE((*p));
+      tno *u,*v;
+      u=(*p)->dir;
+      v=u->esq;
+      (*p)->dir= v->esq;
+      u->esq=v->dir;
+      v->dir=u;
+      v->esq=*p;
     }
 
     tno *maior(tno**t){
@@ -189,18 +205,14 @@ int main(){
     insere(&t,15);
     insere(&t,9);
     insere(&t,8);
-int con=0;
+    int con=0;
     printf("\n");
     //int x =buscaR(t,9);
     //if(x!=-1)printf("achou :%d",x);
     //else printf("nao achou");
     //remover(&t,10);
-    con=  contanos(t);
-    printf("\n");
-    printf("\n");
-      printf("quantidade de nos: %d",con);
-printf("\n");
-    Ordem(t);
+    //con=  contanos(t);
 
-    return 0;
+    printf("\n");
+      printf("\n");
 }
