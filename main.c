@@ -1,22 +1,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-    typedef struct no{
+    struct no{
         int info;
         struct no *esq;
         struct no*dir;
         int fb;
-    }tno;
+    };
+    typedef struct no tno;
 
     void insere(tno**t, int x){
-    tno*no;
+      tno *no,* aux,*ant;
+    if(*t ==NULL){
     no = (tno*)(malloc(sizeof(tno)));
     no->info=x;
     no->esq=NULL;
     no->dir=NULL;
-    tno* aux,*ant;
-    if(*t ==NULL){
-        *t = no;
+          *t = no;
+        printf("asfasfafsdafafa" );
     }else{
         aux= *t;
 
@@ -125,6 +126,7 @@
       (*p)=u;
     }
     //===============ROTAÇÃO DUPLADIREITA===================
+    /*
     void RDD(tno**p){
       tno *u,*v;
       u=(*p)->esq;
@@ -146,7 +148,7 @@
       v->dir=u;
       v->esq=*p;
     }
-
+*/
     tno *maior(tno**t){
         if((*t)->dir!=NULL)
             return maior(&(*t)->dir);
@@ -196,16 +198,16 @@ void remover(tno**t,int x){
     }
 }
 int main(){
-    tno*t = NULL;
-
-    insere(&t,5);
-    insere(&t,3);
-    insere(&t,10);
-    insere(&t,7);
-    insere(&t,15);
-    insere(&t,9);
-    insere(&t,8);
+  tno*t = NULL;
+  insere(&t,5);
+   insere(&t,3);
+   insere(&t,10);
+   insere(&t,7);
+   insere(&t,15);
+   insere(&t,9);
+   insere(&t,8);
     int con=0;
+    PreOrdem(t);
     printf("\n");
     //int x =buscaR(t,9);
     //if(x!=-1)printf("achou :%d",x);
