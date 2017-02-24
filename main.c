@@ -7,7 +7,15 @@ int main(int argc, char const *argv[]){
   insereR(&t,15);
   insereR(&t,8);
   insereR(&t,3);
+  insereR(&t,11);
+  insereR(&t,16);
   PreOrdem(t);
       printf("\n");
+  remover(&t,5);
+  PreOrdem(t);
+      // int x =busca(t,15);
+      // // printf("%d\n",x );
+      // if(x!=1) printf("nao achou\n");
+
       return 0;
 }

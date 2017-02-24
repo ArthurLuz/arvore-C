@@ -49,9 +49,10 @@ void insereR(tno** t, int info){// insere os elementos de forma recursiva
     // metodo busca
     int busca(tno*t,int x){
         while(t!=NULL){
-            if (x==t->info)
+            if (x==t->info){
                 return 1;
-            else if(t->info <x)
+                printf("achou\n");
+            }else if(t->info <x)
                 t = t->dir;
                 else t = t->esq;
         }
@@ -61,21 +62,24 @@ void insereR(tno** t, int info){// insere os elementos de forma recursiva
     //busca recursiva
     int buscaR (tno*t,int k) {
     if ( t->info == k){
-        //printf( "achou aki: %d",t->info);
-        return k;
+        printf( "achou aki: %d",t->info);
+        return 2;
       }else{
+        printf("hueeee\n");
         if(k > t->info){
-            if(t->dir != NULL)
+            if(t->dir != NULL){
               buscaR(t->dir,k);
-            else
+              printf("demonho\n");
+            }else
               return -1;
           }else{
-            if(t->esq != NULL)
+            if(t->esq != NULL){
+            printf("satan\n");
                 buscaR(t->esq,k);
-            else
+            }else
                 return -1;
           }
-      }return 0;
+      }return -1;
     }
     void imprimelvl(tno*t,int nivel){
         if(t==NULL)
@@ -186,18 +190,18 @@ void remover(tno**t,int x){
             else if(x>(*t)->info)
                 remover(&((*t)->dir),x);
             else{
-
                 aux=*t;
                 if(aux->esq==NULL&&aux->dir==NULL){
                     *t = NULL;
                     free (aux);
+        //============== Metodo Apaga no com um filho =================
                 }else if (aux->esq==NULL || aux->dir == NULL){
                     if(aux->esq==NULL)
                         *t=aux->dir;
                     else
                         *t= aux->esq;
                     free(aux);
-
+          //============== Metodo Apaga no com dois filhos =================                  
                 }else {
                     aux=maior(&((*t))->esq);
                     aux->esq=(*t)->esq;
