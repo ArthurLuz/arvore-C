@@ -8,32 +8,45 @@
         int fb;
     };
     typedef struct no tno;
+//-----------------------------------------------------
+void insereR(tno** t, int info){// insere os elementos de forma recursiva
 
+  if(*t == NULL)  {
+    *t = (tno*)malloc(sizeof(tno));
+    (*t)->esq = NULL;
+    (*t)->dir = NULL;
+    (*t)->info = info;
+  } else {
+    if(info < (*t)->info) // Se o número for menor então vai pra esquerda
+      insereR(&(*t)->esq, info);
+    if(info > (*t)->info) // Se o número for maior então vai pra direita
+      insereR(&(*t)->dir, info);
+  }
+}
+//---------------------------------------------------------------------
     void insere(tno**t, int x){
       tno *no,* aux,*ant;
-    if(*t ==NULL){
-    no = (tno*)(malloc(sizeof(tno)));
-    no->info=x;
-    no->esq=NULL;
-    no->dir=NULL;
-          *t = no;
-        printf("asfasfafsdafafa" );
-    }else{
-        aux= *t;
-
-
-    while(aux!=NULL){
-        ant=aux;
-        if (x<aux->info)
-            aux=aux->esq;
+        if(*t ==NULL){
+            no = (tno*)(malloc(sizeof(tno)));
+            no->info=x;
+            no->esq=NULL;
+            no->dir=NULL;
+            *t = no;
+                printf("asfasfafsdafafa" );
+        }else{
+            aux= *t;
+            while(aux!=NULL){
+                ant=aux;
+            if (x<aux->info)
+                aux=aux->esq;
+            else
+                aux = aux->dir;
+            }
+        if (x<ant->info)
+            ant->esq=no;
         else
-            aux = aux->dir;
-    }
-    if (x<ant->info)
-        ant->esq=no;
-    else
-        ant->dir=no;
-    }
+            ant->dir=no;
+        }
   }
     // metodo busca
     int busca(tno*t,int x){
@@ -199,15 +212,15 @@ void remover(tno**t,int x){
 }
 int main(){
   tno*t = NULL;
-  insere(&t,5);
-   insere(&t,3);
-   insere(&t,10);
-   insere(&t,7);
-   insere(&t,15);
-   insere(&t,9);
-   insere(&t,8);
+  insereR(&t,5);
+   insereR(&t,3);
+   insereR(&t,10);
+   insereR(&t,7);
+   insereR(&t,15);
+   insereR(&t,9);
+   insereR(&t,8);
     int con=0;
-    PreOrdem(t);
+    Ordem(t);
     printf("\n");
     //int x =buscaR(t,9);
     //if(x!=-1)printf("achou :%d",x);
