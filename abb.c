@@ -3,7 +3,7 @@
 void inicializar(tno **t){
   *t=NULL;
 }
-void insereR(tno** t, int info){// insere os elementos de forma recursiva
+void insereR(tno** t, int info,int *h){// insere os elementos de forma recursiva
   tno *novo;
   if(*t == NULL)  {
     novo = (tno*)malloc(sizeof(tno));
@@ -11,14 +11,38 @@ void insereR(tno** t, int info){// insere os elementos de forma recursiva
     novo->dir = NULL;
     novo->info = info;
     *t=novo;
+    *h=1;
 
   } else {
     tno*aux;
     aux=*t;
-    if(info < aux->info) // Se o número for menor então vai pra esquerda
+    if(info < aux->info){ // Se o número for menor então vai pra esquerda
       insereR(&(aux->esq), info);
-    else // Se nao então vai pra direita
+      if(*h){
+        switch (aux->fb) {
+          case 1:
+            aux->fb=0;
+            *h=0;
+          case 0:
+            aux->fb=-1;
+          case -1:
+            caso1(p,h);
+        }
+      }
+    }else{ // Se nao então vai pra direita
       insereR(&(aux->dir), info);
+        if(*h){
+          switch (aux->fb){
+            case -1:
+              aux->fb=0;
+              *h=0;
+            case 0:
+              aux->->fb=1;
+            case 1:
+              caso2(p,h);
+          }
+        }
+    }
   }
 }
 //---------------------------------------------------------------------
@@ -46,6 +70,23 @@ void insereR(tno** t, int info){// insere os elementos de forma recursiva
             ant->dir=no;
         }
   }
+  void caso1(tno**p,int *h){
+    tno*u=(*p)->esq;
+    if(u->fb==-1)//caso1.1
+      RD(p);
+      //else RDD(p);   <<<<<<<<<<<------- IMPLEMENTAR
+    (*p)->fb=0;
+    *h=0;
+  }
+  void caso2(tno**p,int *h){
+    tno*u=(*p)->dir;
+    if(u->fb==1)//caso2.1
+      RE(p);
+      //else RDE(p);   <<<<<<<<<<<------- IMPLEMENTAR
+    (*p)->fb=0;
+    *h=0;
+  }
+
     // metodo busca
     int busca(tno*t,int x){
         while(t!=NULL){
@@ -201,7 +242,7 @@ void remover(tno**t,int x){
                     else
                         *t= aux->esq;
                     free(aux);
-          //============== Metodo Apaga no com dois filhos =================                  
+          //============== Metodo Apaga no com dois filhos =================
                 }else {
                     aux=maior(&((*t))->esq);
                     aux->esq=(*t)->esq;
